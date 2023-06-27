@@ -1,10 +1,13 @@
- 
 
+require('dotenv').config();
+const apiKey= process.env.API_KEY;
+// console.log(apiKey);
 const { response } = require("express");
 const express = require("express");
 const https = require("https");
 
 const bodyParser = require("body-parser");
+
 
 const app = express();
 
@@ -14,18 +17,15 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 
 app.get("/",function(req,res) {
-
-       res.sendFile(__dirname + "/index.html") 
-
+    
+    res.sendFile(__dirname + "/index.html") 
+    
 });
-
-
-
 
 app.post("/",function(req,res) {
     const query = req.body.cityName;
-    const apiKey = "90510e536c780a6b7fd2227490fcc934";
-const url = "https://api.openweathermap.org/data/2.5/weather?q=" + query + "&appid=" + apiKey + "&units=metric";
+    // const apiKey = "90510e536c780a6b7fd2227490fcc934";
+    const url = "https://api.openweathermap.org/data/2.5/weather?q=" + query + "&appid=" + apiKey + "&units=metric";
         https.get(url,function(response) {
             console.log(response.statusCode);
             // now to fetching data from api response.on is used
